@@ -12,6 +12,8 @@ struct diary_appApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(List_View_ViewModel())
+                .environmentObject(detailView_ViewModel())
         }
     }
 }
