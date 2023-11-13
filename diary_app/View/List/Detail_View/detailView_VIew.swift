@@ -15,6 +15,7 @@ struct detailView_View: View {
     
     
     
+    
     var body: some View {
 //        Text("\(detail_view_ViewModel.title)")
         test_View()
