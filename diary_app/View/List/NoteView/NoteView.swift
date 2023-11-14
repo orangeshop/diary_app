@@ -22,6 +22,8 @@ struct NoteView: View {
             }
     }
     
+    
+    
     func calculator_ratio_x(x : CGFloat)-> CGFloat{
         var offset : CGFloat = CGFloat(x)
         
