@@ -28,10 +28,10 @@ struct List_View: View {
                         List_View_cell(diary : diary)
                             .onTapGesture {
                                 
-                                detailview_viewmodel.addDiary(diary)
+//                                detailview_viewmodel.addDiary(diary)
                                 detailview_viewmodel.title_temp(diary.Title)
                                 print(detailview_viewmodel.detail_diary)
-                                
+                                detailview_viewmodel.detail_temp(diary.Detail)
                                 pathmodel.paths.append(.Detail_View)
                                 
                                 print("click idx \(diary)")

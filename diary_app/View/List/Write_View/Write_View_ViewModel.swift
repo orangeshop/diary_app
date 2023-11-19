@@ -15,6 +15,8 @@ class Write_View_ViewModel : ObservableObject{
     
     
     
+    
+    
     init(title: String = "",
          day: Date = Date(),
          detail: String = ""

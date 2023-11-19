@@ -59,7 +59,7 @@ struct assemble_Write_View : View {
                     .clipShape(.rect(cornerRadius: 35))
                 
                 Write_Detail_Text_Field_View(write_viewmodel: write_view_viewmodel)
-                    .foregroundStyle(.white)
+                    
                     .padding()
             }
         }
@@ -69,6 +69,7 @@ struct assemble_Write_View : View {
 struct Write_Detail_Text_Field_View : View {
     
     @ObservedObject private var write_viewmodel : Write_View_ViewModel
+    @FocusState private var isFocused: Bool
     
     fileprivate init(write_viewmodel: Write_View_ViewModel) {
         self.write_viewmodel = write_viewmodel
@@ -76,17 +77,22 @@ struct Write_Detail_Text_Field_View : View {
     
     var body: some View {
         VStack{
+            Text("Detail :")
+                .font(.system(size: 30, weight: .bold))
+                .foregroundStyle(.white)
             HStack{
-                Text("Detail :")
-                    .font(.system(size: 30, weight: .bold))
-                
                 Spacer()
-                TextField("Detail", text: $write_viewmodel.detail)
-                    .font(.system(size: 30))
+                TextEditor(text: $write_viewmodel.detail)
+                    .focused($isFocused)
+                    .clipShape(.rect(cornerRadius: 20))
+                    .font(.system(size: 20, weight: .ultraLight))
                     .lineLimit(5)
                     
             }
             
+        }
+        .onTapGesture {
+            isFocused.toggle()
         }
         .padding()
     }
@@ -107,7 +113,7 @@ struct Write_Title_Text_Field_View : View {
                     .font(.system(size: 30, weight: .bold))
                 
                 Spacer()
-                TextField("Title", text: $write_viewmodel.title)
+                TextEditor(text: $write_viewmodel.title)
                     .font(.system(size: 30))
                 
                 let _ = print("text feild \($write_viewmodel.title)")

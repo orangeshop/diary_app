@@ -33,6 +33,7 @@ struct ContentView: View {
                                 
                             case .Detail_View:
                                 detailView_View()
+                                    .navigationBarBackButtonHidden()
                                 
                             }
                             
