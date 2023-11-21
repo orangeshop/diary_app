@@ -175,22 +175,48 @@ struct CustomNavigationView : View {
             Spacer()
             
             Button(action: {
-                if(write_view_viewmodel.mode == true){
-                    write_view_viewmodel.mode = false
-                }
                 
-                if(write_view_viewmodel.title == ""){
+                
+                if(write_view_viewmodel.title == "" && write_view_viewmodel.mode == false){
                     print("비어있음")
+                    write_view_viewmodel.title = write_view_viewmodel.title
                     alert_check.toggle()
+                    print(alert_check)
+                }
+                else if
+                    (write_view_viewmodel.temp_title == "" && write_view_viewmodel.mode == true){
+                    print("비어있음")
+                    write_view_viewmodel.title = write_view_viewmodel.temp_title
+                    alert_check.toggle()
+                    print(alert_check)
+                }
+//                else if(write_view_viewmodel.detail == "" || write_view_viewmodel.temp_detail == ""){
+//                    alert_check.toggle()
+//                }
+                else{
+                    if(write_view_viewmodel.mode == true){
+                        
+                        print("hi \(write_view_viewmodel.idx)")
+                        
+                        list_view_viewmodel.correctionDiary(.init(Title: write_view_viewmodel.temp_title, Date: write_view_viewmodel.day, Detail: write_view_viewmodel.temp_detail), num: write_view_viewmodel.idx)
+                    }
+                    else{
+                        
+                        list_view_viewmodel.addDiary(.init(Title: write_view_viewmodel.title, Date: write_view_viewmodel.day, Detail: write_view_viewmodel.detail))
+                    }
+                    
+                    if(write_view_viewmodel.mode == true){
+                        write_view_viewmodel.mode = false
+//                        write_view_viewmodel.change_mode(-1)
+                    }
+                    
+                    pathmodel.paths.removeLast()
+                    print(list_view_viewmodel.diarys)
                     
                 }
-                
                 print(write_view_viewmodel.title)
                 
-//                list_view_viewmodel.addDiary(.init(Title: write_view_viewmodel.title, Date: write_view_viewmodel.day, Detail: write_view_viewmodel.detail))
-                pathmodel.paths.removeLast()
-                print(list_view_viewmodel.diarys)
-                write_view_viewmodel.change_mode(-1)
+//
                 
                 
             }, label: {
@@ -198,10 +224,9 @@ struct CustomNavigationView : View {
                     .font(.system(size: 20, weight: .bold))
                     .foregroundStyle(colorScheme == .dark ? Color.white : .black)
             })
-            .alert(isPresented: $alert_check) {
-                Alert(title: Text("서근 개발블로그"), message: nil,
-                                  dismissButton: .default(Text("구독")))
-            }
+            .alert("제목을 입력해주세요.", isPresented: $alert_check, actions: {
+                Text("닫기")
+            })
         }
         .foregroundStyle(.black)
         .padding(.all, 20)

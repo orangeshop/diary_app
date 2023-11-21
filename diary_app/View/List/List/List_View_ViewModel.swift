@@ -20,6 +20,17 @@ class List_View_ViewModel : ObservableObject{
         diarys.append(diray)
     }
     
+    func correctionDiary(_ diray: Diary, num : Int){
+        print("write view idx \(num)")
+        print(diray)
+        
+        diarys[num] = diray
+        
+        
+        
+    }
+    
+    
     func idxDiary(_ diary: Diary) -> Int{
         for i in 0 ..< diarys.count{
             if(diary == diarys[i]){

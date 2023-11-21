@@ -43,6 +43,7 @@ struct List_View_cell: View {
                             
                             let _ = print("\(write_view_viewmodel.mode)")
                             write_view_viewmodel.mode = true
+                            write_view_viewmodel.idx = list_view_viewmodel.idxDiary(diary)
                             write_view_viewmodel.change_mode(list_view_viewmodel.idxDiary(diary))
                             
                             let _ = print(write_view_viewmodel.mode)
