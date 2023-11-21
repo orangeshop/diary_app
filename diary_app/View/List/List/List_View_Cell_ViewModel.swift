@@ -23,5 +23,4 @@ class List_View_Cell_ViewModel : ObservableObject{
         self.detail = detail
     }
     
-    
 }

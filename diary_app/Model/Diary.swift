@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Diary: Hashable{
     let Title : String
@@ -25,5 +26,21 @@ struct Diary: Hashable{
         
         return "\(month)/\(day)"
     }
+    
+    func line_size_check(str : String) -> CGFloat{
+        print(str)
+        var arr = Array(str)
+        var answer : CGFloat = 1
+        for i in 0 ..< str.count{
+            print(arr[i])
+            if(arr[i] == "\n"){
+                print("lline")
+                answer += 1
+            }
+        }
+        return answer
+    }
+    
+    
     
 }

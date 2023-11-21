@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var pathmodel = PathModel()
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     var body: some View {
+        
+        
         VStack{
             LightView()
                 .ignoresSafeArea()
@@ -27,7 +29,7 @@ struct ContentView: View {
                                 let _ = print("in NS")
                                 Write_View()
                                     .navigationBarBackButtonHidden()
-                                    
+                                
                             case .NoteView:
                                 Write_View()
                                 
@@ -39,9 +41,10 @@ struct ContentView: View {
                             
                         }
                     )
-//                NoteView()
+                //                NoteView()
                 
             }
+            .padding(.top, 20)
             .environmentObject(pathmodel)
         }
     }

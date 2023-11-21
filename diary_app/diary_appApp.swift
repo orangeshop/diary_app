@@ -14,6 +14,7 @@ struct diary_appApp: App {
             ContentView()
                 .environmentObject(List_View_ViewModel())
                 .environmentObject(detailView_ViewModel())
+                .environmentObject(Write_View_ViewModel())
         }
     }
 }

@@ -15,12 +15,13 @@ struct detailView_View: View {
         
         Detail_View_Navigaion_View()
         
-        detail_view_Preview()
+//        detail_view_Preview()
     }
 }
 
 struct Detail_View_Navigaion_View : View {
     @EnvironmentObject var pathmodel : PathModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         HStack{
@@ -30,6 +31,7 @@ struct Detail_View_Navigaion_View : View {
             }, label: {
                 Text("뒤로")
                     .font(.system(size: 20, weight: .bold))
+                    .foregroundStyle(colorScheme == .dark ? .white : .black)
             })
             Spacer()
             Button(action: {
@@ -38,6 +40,7 @@ struct Detail_View_Navigaion_View : View {
             }, label: {
                 Text("수정")
                     .font(.system(size: 20, weight: .bold))
+                    .foregroundStyle(colorScheme == .dark ? .white : .black)
             })
         }
         .foregroundStyle(.black)

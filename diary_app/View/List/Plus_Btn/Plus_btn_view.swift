@@ -17,13 +17,13 @@ struct Plus_btn_view: View {
             pathmodel.paths.append(.Write_View)
         }, label: {
             Circle()
-                .foregroundColor(.yellow)
+                .foregroundColor(.black)
                 .frame(width: 65, height: 65)
                 .overlay {
                     Image(systemName: "plus")
                         .resizable()
                         .frame(width: 40, height: 40)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                 }
         })
         

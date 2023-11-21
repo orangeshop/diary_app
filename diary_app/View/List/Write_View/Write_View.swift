@@ -11,7 +11,8 @@ struct Write_View: View {
     
     @EnvironmentObject private var list_view_model : List_View_ViewModel
     
-    @StateObject private var write_view_viewmodel = Write_View_ViewModel()
+    @EnvironmentObject private var write_view_viewmodel : Write_View_ViewModel
+    
     
     var body: some View {
         VStack{
@@ -21,14 +22,14 @@ struct Write_View: View {
             //MARK: 입력 부분
             Spacer()
             
-//            Write_Text_Field_View(write_viewmodel: write_view_viewmodel)
+            let _ = print("\(write_view_viewmodel.mode)")
             
             assemble_Write_View(write_view_viewmodel: write_view_viewmodel)
             
             Spacer()
             
         }
-        
+        .padding(.top, 20)
     }
 }
 
@@ -40,29 +41,34 @@ struct assemble_Write_View : View {
         self.write_view_viewmodel = write_view_viewmodel
     }
     
+    @FocusState private var isFocuse : Bool
+    @State var focuse : Bool = false
     var body: some View {
-        VStack{
-            ZStack{
-                
-                Rectangle()
-                    .frame(width: UIScreen.main.bounds.width - 30, height: 150)
-                    .clipShape(.rect(cornerRadius: 35))
-                
-                Write_Title_Text_Field_View(write_viewmodel: write_view_viewmodel)
-                    .foregroundStyle(.white)
-                    .padding()
-            }
+        VStack(alignment: .leading){
             
-            ZStack{
-                Rectangle()
-                    .frame(width: UIScreen.main.bounds.width - 30, height: 500)
-                    .clipShape(.rect(cornerRadius: 35))
-                
-                Write_Detail_Text_Field_View(write_viewmodel: write_view_viewmodel)
-                    
-                    .padding()
-            }
+            Write_Title_Text_Field_View(write_viewmodel: write_view_viewmodel, inner_isfocuse: $focuse, list_view_model: List_View_ViewModel())
+                .focused($isFocuse)
+                .onTapGesture {
+                    isFocuse.toggle()
+                    focuse.toggle()
+                }
+            
+            
+            Rectangle()
+                .frame(width: UIScreen.main.bounds.width - 40, height: 2)
+            
+            Spacer()
+            Write_Detail_Text_Field_View(write_viewmodel: write_view_viewmodel)
+                .onTapGesture {
+                    print("\(isFocuse)")
+                    isFocuse.toggle()
+                }
+            Spacer()
+            Rectangle()
+                .frame(width: UIScreen.main.bounds.width - 40, height: 2)
         }
+        .padding()
+        
     }
 }
 
@@ -70,29 +76,30 @@ struct Write_Detail_Text_Field_View : View {
     
     @ObservedObject private var write_viewmodel : Write_View_ViewModel
     @FocusState private var isFocused: Bool
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     fileprivate init(write_viewmodel: Write_View_ViewModel) {
         self.write_viewmodel = write_viewmodel
     }
     
     var body: some View {
-        VStack{
-            Text("Detail :")
+        VStack(alignment: .leading){
+            Text("Detail")
                 .font(.system(size: 30, weight: .bold))
                 .foregroundStyle(.white)
             HStack{
                 Spacer()
-                TextEditor(text: $write_viewmodel.detail)
+                TextEditor(text: write_viewmodel.mode == true ? $write_viewmodel.temp_detail: $write_viewmodel.detail)
+                    .foregroundStyle(colorScheme == .dark ? Color.white : .black)
                     .focused($isFocused)
                     .clipShape(.rect(cornerRadius: 20))
                     .font(.system(size: 20, weight: .ultraLight))
-                    .lineLimit(5)
                     
             }
             
         }
         .onTapGesture {
             isFocused.toggle()
+            print("\(isFocused)")
         }
         .padding()
     }
@@ -100,65 +107,101 @@ struct Write_Detail_Text_Field_View : View {
 
 struct Write_Title_Text_Field_View : View {
     
-    @ObservedObject private var write_viewmodel : Write_View_ViewModel
+    @ObservedObject var write_viewmodel : Write_View_ViewModel
+    @Binding var inner_isfocuse : Bool
+    @ObservedObject var list_view_model : List_View_ViewModel
+
     
-    fileprivate init(write_viewmodel: Write_View_ViewModel) {
-        self.write_viewmodel = write_viewmodel
-    }
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
+//    private var diarys : Diary
+    
+    
+//    @State var test : String = "\(list_view_model.diarys[write_viewmodel.idx].Title )"
     
     var body: some View {
-        VStack{
-            HStack{
-                Text("Title :")
-                    .font(.system(size: 30, weight: .bold))
-                
-                Spacer()
-                TextEditor(text: $write_viewmodel.title)
-                    .font(.system(size: 30))
-                
-                let _ = print("text feild \($write_viewmodel.title)")
-                    
-            }
+        VStack(alignment: .leading){
+            Text("Title")
+                .font(.system(size: 30, weight: .bold))
+            let _ = print("in text mode \(write_viewmodel.mode)")
+            TextField("제목을 적어주세요!",text: write_viewmodel.mode == true ? $write_viewmodel.temp_title: $write_viewmodel.title)
+                .font(.system(size: 30))
+                .foregroundStyle(colorScheme == .dark ? Color.white : .black)
+//                .foregroundStyle(inner_isfocuse ? .black : .gray)
             
+            
+            let _ = print("text feild \($write_viewmodel.title)")
         }
-        .padding()
+//        .onTapGesture {
+//            isFocuse.toggle()
+//        }
     }
 }
 
 struct CustomNavigationView : View {
     @EnvironmentObject private var pathmodel : PathModel
     @EnvironmentObject private var list_view_viewmodel : List_View_ViewModel
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject private var write_view_viewmodel : Write_View_ViewModel
     
     init(write_view_viewmodel: Write_View_ViewModel
     ) {
         self.write_view_viewmodel = write_view_viewmodel
     }
-
+    
+    @State private var alert_check : Bool = false
     
     var body: some View {
         HStack{
             Button(action: {
-                pathmodel.paths.removeLast()
                 
+                let _ = print("aaaa \(write_view_viewmodel.title)")
+                if(write_view_viewmodel.mode == true){
+                    write_view_viewmodel.mode = false
+                }
+                
+                
+                
+                write_view_viewmodel.change_mode(-1)
+                pathmodel.paths.removeLast()
             }, label: {
                 Text("뒤로")
                     .font(.system(size: 20, weight: .bold))
+                    .foregroundStyle(colorScheme == .dark ? Color.white : .black)
+                
+                
             })
+            
             Spacer()
+            
             Button(action: {
+                if(write_view_viewmodel.mode == true){
+                    write_view_viewmodel.mode = false
+                }
+                
+                if(write_view_viewmodel.title == ""){
+                    print("비어있음")
+                    alert_check.toggle()
+                    
+                }
                 
                 print(write_view_viewmodel.title)
                 
-                list_view_viewmodel.addDiary(.init(Title: write_view_viewmodel.title, Date: write_view_viewmodel.day, Detail: write_view_viewmodel.detail))
+//                list_view_viewmodel.addDiary(.init(Title: write_view_viewmodel.title, Date: write_view_viewmodel.day, Detail: write_view_viewmodel.detail))
                 pathmodel.paths.removeLast()
                 print(list_view_viewmodel.diarys)
+                write_view_viewmodel.change_mode(-1)
+                
                 
             }, label: {
                 Text("저장")
                     .font(.system(size: 20, weight: .bold))
+                    .foregroundStyle(colorScheme == .dark ? Color.white : .black)
             })
+            .alert(isPresented: $alert_check) {
+                Alert(title: Text("서근 개발블로그"), message: nil,
+                                  dismissButton: .default(Text("구독")))
+            }
         }
         .foregroundStyle(.black)
         .padding(.all, 20)

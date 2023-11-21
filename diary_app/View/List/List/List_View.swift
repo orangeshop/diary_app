@@ -26,66 +26,66 @@ struct List_View: View {
                     ForEach(list_view_viewmodel.diarys, id: \.self){diary in
                         
                         List_View_cell(diary : diary)
-                            .onTapGesture {
-                                
-//                                detailview_viewmodel.addDiary(diary)
-                                detailview_viewmodel.title_temp(diary.Title)
-                                print(detailview_viewmodel.detail_diary)
-                                detailview_viewmodel.detail_temp(diary.Detail)
-                                pathmodel.paths.append(.Detail_View)
-                                
-                                print("click idx \(diary)")
-
-                                
-                        }
+//                            .onTapGesture {
+//                                
+////                                detailview_viewmodel.addDiary(diary)
+//                                detailview_viewmodel.title_temp(diary.Title)
+//                                print(detailview_viewmodel.detail_diary)
+//                                detailview_viewmodel.detail_temp(diary.Detail)
+//                                pathmodel.paths.append(.Detail_View)
+//                                
+//                                print("click idx \(diary)")
+//
+//                                
+//                        }
                     }
                     
                     
                 }
                 .padding(.vertical, now_drag ? padding_drag.height : 0)
                 .offset(y : CGFloat(currentIndex * 330))
-                .gesture(
-                    DragGesture()
-                    
-                        .onChanged({Value in
-                            withAnimation(.interactiveSpring){
-                                now_drag = true
-                                padding_drag.height = Value.translation.height
-                            }
-                            
-                        })
-                    
-                        .onEnded({ Value in
-                            now_drag = false
-                            print("value \(Value.translation)")
-                            withAnimation(.interactiveSpring){
-//                               드래그를 아래로 할 시
-                                if(Value.translation.height > 0){
-                                    
-                                    if(currentIndex == 0){
-                                        
-                                    }
-                                    else{
-                                        currentIndex += 1
-                                    }
-                                    
-                                }
-                                else if(Value.translation.height < 0){
-                                    if(abs(currentIndex) == numberOfItems - 1){
-                                        withAnimation(.spring){
-                                            currentIndex = -1 * (numberOfItems - 1)
-                                        }
-                                    }
-                                    else{
-                                        currentIndex -= 1
-                                    }
-                                }
-                            }
-                            print("idx \(abs(currentIndex))")
-                        })
-                )
+//                .gesture(
+//                    DragGesture()
+//                    
+//                        .onChanged({Value in
+//                            withAnimation(.interactiveSpring){
+//                                now_drag = true
+//                                padding_drag.height = Value.translation.height
+//                            }
+//                            
+//                        })
+//                    
+//                        .onEnded({ Value in
+//                            now_drag = false
+//                            print("value \(Value.translation)")
+//                            withAnimation(.interactiveSpring){
+////                               드래그를 아래로 할 시
+//                                if(Value.translation.height > 0){
+//                                    
+//                                    if(currentIndex == 0){
+//                                        
+//                                    }
+//                                    else{
+//                                        currentIndex += 1
+//                                    }
+//                                    
+//                                }
+//                                else if(Value.translation.height < 0){
+//                                    if(abs(currentIndex) == numberOfItems - 1){
+//                                        withAnimation(.spring){
+//                                            currentIndex = -1 * (numberOfItems - 1)
+//                                        }
+//                                    }
+//                                    else{
+//                                        currentIndex -= 1
+//                                    }
+//                                }
+//                            }
+//                            print("idx \(abs(currentIndex))")
+//                        })
+//                )
             }
-            .scrollDisabled(true)
+            .scrollDisabled(false)
             
 //        }
 //        .padding(.all)

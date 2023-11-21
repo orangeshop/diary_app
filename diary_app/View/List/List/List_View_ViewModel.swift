@@ -19,4 +19,18 @@ class List_View_ViewModel : ObservableObject{
     func addDiary(_ diray: Diary){
         diarys.append(diray)
     }
+    
+    func idxDiary(_ diary: Diary) -> Int{
+        for i in 0 ..< diarys.count{
+            if(diary == diarys[i]){
+                return i
+            }
+        }
+        return -1
+    }
+    
+    func deleteDiary(_ idx: Int){
+        diarys.remove(at: idx)
+    }
 }
+
