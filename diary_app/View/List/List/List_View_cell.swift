@@ -41,12 +41,15 @@ struct List_View_cell: View {
                     Menu("\(Image(systemName: "ellipsis"))"){
                         Button(action: {
                             
-                            let _ = print("\(write_view_viewmodel.mode)")
+//                            let _ = print("\(write_view_viewmodel.mode)")
                             write_view_viewmodel.mode = true
                             write_view_viewmodel.idx = list_view_viewmodel.idxDiary(diary)
-                            write_view_viewmodel.change_mode(list_view_viewmodel.idxDiary(diary))
                             
-                            let _ = print(write_view_viewmodel.mode)
+                            let _ = print("\(list_view_viewmodel.idxDiary(diary))")
+                            
+                            write_view_viewmodel.change_mode(num : list_view_viewmodel.idxDiary(diary), diary: list_view_viewmodel.diarys)
+                            
+//                            let _ = print(write_view_viewmodel.mode)
                                 
                             pathmodel.paths.append(.Write_View)
                             
@@ -57,9 +60,9 @@ struct List_View_cell: View {
                         })
                         
                         Button(action: {
-                            print("a")
+//                            print("a")
                             
-                            print(list_view_viewmodel.idxDiary(diary))
+//                            print(list_view_viewmodel.idxDiary(diary))
                             
                             list_view_viewmodel.deleteDiary(list_view_viewmodel.idxDiary(diary))
                             
@@ -85,7 +88,7 @@ struct List_View_cell: View {
 //                    .lineLimit(2)
                     .font(.system(size: 30, weight: .light))
                 
-                let _ = print(diary.line_size_check(str: diary.Detail))
+//                let _ = print(diary.line_size_check(str: diary.Detail))
                     
             }
         }

@@ -25,6 +25,8 @@
 		646798DD2AF4C71B00158C12 /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646798DC2AF4C71B00158C12 /* PathType.swift */; };
 		646798DF2AF4C77400158C12 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646798DE2AF4C77400158C12 /* Path.swift */; };
 		646798E22AF4C94D00158C12 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646798E12AF4C94D00158C12 /* NoteView.swift */; };
+		64749B152B0CF53800A5764F /* coremodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64749B132B0CF53800A5764F /* coremodel.xcdatamodeld */; };
+		64749B172B0CF57E00A5764F /* coremodelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64749B162B0CF57E00A5764F /* coremodelController.swift */; };
 		64A567AA2AF3861B003EF5D9 /* Write_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A567A92AF3861B003EF5D9 /* Write_View.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,8 @@
 		646798DC2AF4C71B00158C12 /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
 		646798DE2AF4C77400158C12 /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		646798E12AF4C94D00158C12 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		64749B142B0CF53800A5764F /* coremodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = coremodel.xcdatamodel; sourceTree = "<group>"; };
+		64749B162B0CF57E00A5764F /* coremodelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coremodelController.swift; sourceTree = "<group>"; };
 		64A567A92AF3861B003EF5D9 /* Write_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Write_View.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +88,7 @@
 				642637C22AF21DDD006687E6 /* diary_appApp.swift */,
 				642637D02AF21E0F006687E6 /* View */,
 				642637D12AF21E18006687E6 /* Model */,
+				64749B122B0CF4A900A5764F /* CoreData */,
 				642637C62AF21DDE006687E6 /* Assets.xcassets */,
 				642637C82AF21DDE006687E6 /* Preview Content */,
 				640A96BD2B0A6660001A06CF /* Color.swift */,
@@ -191,6 +196,15 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		64749B122B0CF4A900A5764F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				64749B162B0CF57E00A5764F /* coremodelController.swift */,
+				64749B132B0CF53800A5764F /* coremodel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		64A567A82AF38600003EF5D9 /* Write_View */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64749B172B0CF57E00A5764F /* coremodelController.swift in Sources */,
 				642637DF2AF227C3006687E6 /* List_View_cell.swift in Sources */,
 				646798DF2AF4C77400158C12 /* Path.swift in Sources */,
 				645403B52B01093300FE4964 /* detailView_ViewModel.swift in Sources */,
@@ -282,6 +297,7 @@
 				645403B72B01095B00FE4964 /* detailView_VIew.swift in Sources */,
 				645403B22AFF96F500FE4964 /* Write_View_ViewModel.swift in Sources */,
 				642637C32AF21DDD006687E6 /* diary_appApp.swift in Sources */,
+				64749B152B0CF53800A5764F /* coremodel.xcdatamodeld in Sources */,
 				64A567AA2AF3861B003EF5D9 /* Write_View.swift in Sources */,
 				64019B3A2AFB158500C18A7A /* List_View_ViewModel.swift in Sources */,
 				64019B3C2AFB15C800C18A7A /* Diary.swift in Sources */,
@@ -430,6 +446,8 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,6 +479,8 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -496,6 +516,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		64749B132B0CF53800A5764F /* coremodel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				64749B142B0CF53800A5764F /* coremodel.xcdatamodel */,
+			);
+			currentVersion = 64749B142B0CF53800A5764F /* coremodel.xcdatamodel */;
+			path = coremodel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 642637B72AF21DDD006687E6 /* Project object */;
 }

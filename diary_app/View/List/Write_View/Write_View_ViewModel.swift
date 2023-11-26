@@ -18,7 +18,6 @@ class Write_View_ViewModel : ObservableObject{
     @Published var temp_title : String
     @Published var temp_detail : String
     
-    
     init(title: String = "",
          day: Date = Date(),
          detail: String = "",
@@ -40,15 +39,27 @@ class Write_View_ViewModel : ObservableObject{
     
    
     
-    func change_mode(_ num : Int){
+    func change_mode(num : Int, diary : [Diary]){
 //        mode.toggle()
         if(num == -1){
+            mode = false
+            idx = -1
+            title = ""
+            detail = ""
+            temp_detail = ""
+            temp_title = ""
             return
         }
         idx = num
-//        let _ = print(List_View_ViewModel().diarys[idx].Title)
-        temp_title = List_View_ViewModel().diarys[idx].Title
-        temp_detail = List_View_ViewModel().diarys[idx].Detail
+//        let _ = print(List_View_ViewModel().diarys)
+//        let _ = print(idx)
+//        
+        for i in 0 ..< diary.count{
+            print("\(i) : \(diary[i])")
+        }
+//        
+        temp_title = diary[idx].Title
+        temp_detail = diary[idx].Detail
     }
     
 }

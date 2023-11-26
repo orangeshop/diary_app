@@ -12,8 +12,8 @@ struct Plus_btn_view: View {
     var body: some View {
         
         Button(action: {
-            print("plus btn click")
-            print("\(pathmodel.paths)")
+//            print("plus btn click")
+//            print("\(pathmodel.paths)")
             pathmodel.paths.append(.Write_View)
         }, label: {
             Circle()

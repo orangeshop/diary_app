@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreData
 struct Write_View: View {
     
     @EnvironmentObject private var list_view_model : List_View_ViewModel
@@ -15,6 +15,7 @@ struct Write_View: View {
     
     
     var body: some View {
+        
         VStack{
             //MARK: 상단 navigatoin
             CustomNavigationView(write_view_viewmodel: write_view_viewmodel)
@@ -41,17 +42,17 @@ struct assemble_Write_View : View {
         self.write_view_viewmodel = write_view_viewmodel
     }
     
-    @FocusState private var isFocuse : Bool
+//    @FocusState private var isFocuse : Bool
     @State var focuse : Bool = false
     var body: some View {
         VStack(alignment: .leading){
             
             Write_Title_Text_Field_View(write_viewmodel: write_view_viewmodel, inner_isfocuse: $focuse, list_view_model: List_View_ViewModel())
-                .focused($isFocuse)
-                .onTapGesture {
-                    isFocuse.toggle()
-                    focuse.toggle()
-                }
+//                .focused($isFocuse)
+//                .onTapGesture {
+//                    isFocuse.toggle()
+//                    focuse.toggle()
+//                }
             
             
             Rectangle()
@@ -59,10 +60,10 @@ struct assemble_Write_View : View {
             
             Spacer()
             Write_Detail_Text_Field_View(write_viewmodel: write_view_viewmodel)
-                .onTapGesture {
-                    print("\(isFocuse)")
-                    isFocuse.toggle()
-                }
+//                .onTapGesture {
+//                    print("\(isFocuse)")
+//                    isFocuse.toggle()
+//                }
             Spacer()
             Rectangle()
                 .frame(width: UIScreen.main.bounds.width - 40, height: 2)
@@ -75,7 +76,7 @@ struct assemble_Write_View : View {
 struct Write_Detail_Text_Field_View : View {
     
     @ObservedObject private var write_viewmodel : Write_View_ViewModel
-    @FocusState private var isFocused: Bool
+//    @FocusState private var isFocused: Bool
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     fileprivate init(write_viewmodel: Write_View_ViewModel) {
         self.write_viewmodel = write_viewmodel
@@ -85,22 +86,22 @@ struct Write_Detail_Text_Field_View : View {
         VStack(alignment: .leading){
             Text("Detail")
                 .font(.system(size: 30, weight: .bold))
-                .foregroundStyle(.white)
+                .foregroundStyle(colorScheme == .dark ? Color.white : .black)
             HStack{
                 Spacer()
                 TextEditor(text: write_viewmodel.mode == true ? $write_viewmodel.temp_detail: $write_viewmodel.detail)
                     .foregroundStyle(colorScheme == .dark ? Color.white : .black)
-                    .focused($isFocused)
+//                    .focused($isFocused)
                     .clipShape(.rect(cornerRadius: 20))
                     .font(.system(size: 20, weight: .ultraLight))
                     
             }
             
         }
-        .onTapGesture {
-            isFocused.toggle()
-            print("\(isFocused)")
-        }
+//        .onTapGesture {
+//            isFocused.toggle()
+//            print("\(isFocused)")
+//        }
         .padding()
     }
 }
@@ -123,18 +124,21 @@ struct Write_Title_Text_Field_View : View {
         VStack(alignment: .leading){
             Text("Title")
                 .font(.system(size: 30, weight: .bold))
-            let _ = print("in text mode \(write_viewmodel.mode)")
+            //            let _ = print("in text mode \(write_viewmodel.mode)")
+            
+            
+            
             TextField("제목을 적어주세요!",text: write_viewmodel.mode == true ? $write_viewmodel.temp_title: $write_viewmodel.title)
                 .font(.system(size: 30))
                 .foregroundStyle(colorScheme == .dark ? Color.white : .black)
-//                .foregroundStyle(inner_isfocuse ? .black : .gray)
+            //                .foregroundStyle(inner_isfocuse ? .black : .gray)
             
             
-            let _ = print("text feild \($write_viewmodel.title)")
+            //            let _ = print("text feild \($write_viewmodel.title)")
         }
-//        .onTapGesture {
-//            isFocuse.toggle()
-//        }
+        //        .onTapGesture {
+        //            isFocuse.toggle()
+        //        }
     }
 }
 
@@ -143,6 +147,10 @@ struct CustomNavigationView : View {
     @EnvironmentObject private var list_view_viewmodel : List_View_ViewModel
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject private var write_view_viewmodel : Write_View_ViewModel
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.id, order: .reverse)]) var diary_core : FetchedResults<Diray_coremodel>
     
     init(write_view_viewmodel: Write_View_ViewModel
     ) {
@@ -155,14 +163,14 @@ struct CustomNavigationView : View {
         HStack{
             Button(action: {
                 
-                let _ = print("aaaa \(write_view_viewmodel.title)")
+//                let _ = print("aaaa \(write_view_viewmodel.title)")
                 if(write_view_viewmodel.mode == true){
                     write_view_viewmodel.mode = false
                 }
                 
                 
                 
-                write_view_viewmodel.change_mode(-1)
+                write_view_viewmodel.change_mode(num: -1, diary: list_view_viewmodel.diarys)
                 pathmodel.paths.removeLast()
             }, label: {
                 Text("뒤로")
@@ -179,14 +187,14 @@ struct CustomNavigationView : View {
                 
                 if(write_view_viewmodel.title == "" && write_view_viewmodel.mode == false){
                     print("비어있음")
-                    write_view_viewmodel.title = write_view_viewmodel.title
+//                    write_view_viewmodel.title = write_view_viewmodel.title
                     alert_check.toggle()
                     print(alert_check)
                 }
                 else if
                     (write_view_viewmodel.temp_title == "" && write_view_viewmodel.mode == true){
                     print("비어있음")
-                    write_view_viewmodel.title = write_view_viewmodel.temp_title
+//                    write_view_viewmodel.title = write_view_viewmodel.temp_title
                     alert_check.toggle()
                     print(alert_check)
                 }
@@ -196,19 +204,28 @@ struct CustomNavigationView : View {
                 else{
                     if(write_view_viewmodel.mode == true){
                         
-                        print("hi \(write_view_viewmodel.idx)")
+//                        print("hi \(write_view_viewmodel.idx)")
                         
                         list_view_viewmodel.correctionDiary(.init(Title: write_view_viewmodel.temp_title, Date: write_view_viewmodel.day, Detail: write_view_viewmodel.temp_detail), num: write_view_viewmodel.idx)
+                        
+                        CoreDataController().add_diary(date: write_view_viewmodel.day, title: write_view_viewmodel.temp_title, detail: write_view_viewmodel.temp_detail, context: managedObjectContext)
+                        
+                        if(write_view_viewmodel.mode == true){
+//                            write_view_viewmodel.mode = false
+                            write_view_viewmodel.change_mode(num:-1, diary : list_view_viewmodel.diarys)
+                        }
                     }
                     else{
                         
                         list_view_viewmodel.addDiary(.init(Title: write_view_viewmodel.title, Date: write_view_viewmodel.day, Detail: write_view_viewmodel.detail))
+                        
+                        CoreDataController().add_diary(date: write_view_viewmodel.day, title: write_view_viewmodel.title, detail: write_view_viewmodel.detail, context: managedObjectContext)
+                        
+                        
+                        write_view_viewmodel.change_mode(num:-1, diary : list_view_viewmodel.diarys)
                     }
                     
-                    if(write_view_viewmodel.mode == true){
-                        write_view_viewmodel.mode = false
-//                        write_view_viewmodel.change_mode(-1)
-                    }
+                    
                     
                     pathmodel.paths.removeLast()
                     print(list_view_viewmodel.diarys)
