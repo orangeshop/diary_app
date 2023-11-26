@@ -6,12 +6,12 @@
 //
 
 import Foundation
-<<<<<<< Updated upstream
-=======
+//<<<<<<< Updated upstream
+//=======
 import CoreData
 
 class CoreDataController : ObservableObject{
-    let contrainer = NSPersistentContainer(name: "coremodel")
+    let contrainer = NSPersistentContainer(name: "DiaryCoreModel")
     
     
     init(){
@@ -50,4 +50,4 @@ class CoreDataController : ObservableObject{
     }
     
 }
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes

@@ -11,7 +11,7 @@ class List_View_ViewModel : ObservableObject{
     @Published var diarys : [Diary]
     
     init(diarys : [Diary] = [
-        .init(Title: "공부는 항상 하기 싫어", Date: Date(), Detail: "공부는 재미없어"),
+        
     ]){
         self.diarys = diarys
     }

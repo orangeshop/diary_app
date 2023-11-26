@@ -24,6 +24,8 @@ struct List_View_cell: View {
         self.diary = diary
     }
     
+    
+    
     var body: some View {
         
         VStack(alignment: .leading){
@@ -65,6 +67,8 @@ struct List_View_cell: View {
 //                            print(list_view_viewmodel.idxDiary(diary))
                             
                             list_view_viewmodel.deleteDiary(list_view_viewmodel.idxDiary(diary))
+                            
+                            
                             
                         }, label: {
                             Text("Delete")

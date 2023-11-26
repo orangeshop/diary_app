@@ -7,8 +7,11 @@
 
 import Foundation
 import SwiftUI
-
+import CoreData
 struct Diary: Hashable{
+    
+
+    
     let Title : String
     let Date : Date
     let Detail : String
