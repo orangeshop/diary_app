@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
     @StateObject private var pathmodel = PathModel()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @EnvironmentObject private var list_view_model : List_View_ViewModel
     
     var body: some View {
         

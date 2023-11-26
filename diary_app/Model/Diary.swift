@@ -19,7 +19,7 @@ struct Diary: Hashable{
         
         var str : String = "\(test)"
         
-        print(str.split(separator: " ")[0].split(separator: "-"))
+//        print(str.split(separator: " ")[0].split(separator: "-"))
         var month = str.split(separator: " ")[0].split(separator: "-")[1]
         var day = str.split(separator: " ")[0].split(separator: "-")[2]
         
@@ -28,13 +28,13 @@ struct Diary: Hashable{
     }
     
     func line_size_check(str : String) -> CGFloat{
-        print(str)
+//        print(str)
         var arr = Array(str)
         var answer : CGFloat = 1
         for i in 0 ..< str.count{
-            print(arr[i])
+//            print(arr[i])
             if(arr[i] == "\n"){
-                print("lline")
+//                print("lline")
                 answer += 1
             }
         }

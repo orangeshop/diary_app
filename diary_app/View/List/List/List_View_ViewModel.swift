@@ -11,9 +11,13 @@ class List_View_ViewModel : ObservableObject{
     @Published var diarys : [Diary]
     
     init(diarys : [Diary] = [
-        .init(Title: "공부는 항상 하기 싫어", Date: Date(), Detail: "공부는 재미없어")
+        .init(Title: "공부는 항상 하기 싫어", Date: Date(), Detail: "공부는 재미없어"),
     ]){
         self.diarys = diarys
+    }
+    
+    func coredata_append_arr(title : String, detail : String, date : Date){
+        diarys.append(Diary(Title: title, Date: date, Detail: detail))
     }
     
     func addDiary(_ diray: Diary){
@@ -21,12 +25,10 @@ class List_View_ViewModel : ObservableObject{
     }
     
     func correctionDiary(_ diray: Diary, num : Int){
-        print("write view idx \(num)")
-        print(diray)
+//        print("write view idx \(num)")
+//        print(diray)
         
         diarys[num] = diray
-        
-        
         
     }
     
