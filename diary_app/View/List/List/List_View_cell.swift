@@ -16,6 +16,10 @@ struct List_View_cell: View {
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.id, order: .reverse)]) var diary_core : FetchedResults<Diray_coremodel>
+    
     
     private var diary : Diary
     
@@ -24,7 +28,7 @@ struct List_View_cell: View {
         self.diary = diary
     }
     
-    
+//    @State var cnt : Int = 0
     
     var body: some View {
         
@@ -66,14 +70,33 @@ struct List_View_cell: View {
                             
 //                            print(list_view_viewmodel.idxDiary(diary))
                             
+                            
+                            
+//                            for i in 0 ..< diary_core.count{
+//                                print(diary_core[i])
+//                                print("-------------")
+//                                
+//                            }
+//                            print("--*******-----------")
+//                            print(managedObjectContext)
+                            
+                            var cnt : Int = 0
+                            
+                            diary_core.forEach{Diray_coremodel in
+                                print("\(cnt) \(list_view_viewmodel.idxDiary(diary))")
+                                if(cnt == list_view_viewmodel.idxDiary(diary)){
+                                    print("hi")
+                                    managedObjectContext.delete(Diray_coremodel)
+                                }
+                                cnt += 1
+                            }
+                            CoreDataController().save(context : managedObjectContext)
+                            
                             list_view_viewmodel.deleteDiary(list_view_viewmodel.idxDiary(diary))
-                            
-                            
                             
                         }, label: {
                             Text("Delete")
                             
-                                
                         })
                     }
                     
